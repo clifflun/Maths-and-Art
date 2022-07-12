@@ -22,6 +22,8 @@ init <- function(n){
 }
 ```
 
+## Binary notation for the rules (TBD)
+
 ## Writing loop for Game of Life Rule 30
 
 ``` r
