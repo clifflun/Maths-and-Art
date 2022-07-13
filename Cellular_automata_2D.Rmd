@@ -1,0 +1,14 @@
+---
+title: "Cellular_automata_2D"
+output: rmarkdown::github_document
+date: '2022-07-13'
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+testing 
+
+# test 
