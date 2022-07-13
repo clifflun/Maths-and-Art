@@ -1,25 +1,40 @@
 ---
-title: "Cellular_automata"
+title: "Elementary_cellular_automata"
 output: rmarkdown::github_document
 date: '2022-07-12'
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(magick)
+library(magrittr)
 ```
 # Objective
 
 The purpose of this exercise is to understand the behaviour of elementary celluarl automata (1D) before moving into modeling 2D cellular automata (CA).
 We will first pick one rule and move on into generating all 256 rules.
 
+```{r include=FALSE}
+## Display the grid
+save <- function(mat, rule_num = NA, iter){
+  png(paste0("/Volumes/MyBook_3/git/R-random-spontaneous-projects/Cellular_automata_files/rule30_gif/","Step_",sprintf("%03d",iter), ".png", collapse = ""), width = 960)
+  par(mar = c(1,1,2,1), pty = "m") 
+  image(t(apply(mat,2,rev)), col=c("grey90", "grey40"), yaxt="n", xaxt="n")
+  grid(nx = ncol(mat), ny = nrow(mat),col="grey70", lty=1)
+  title(main = paste0("Step_",iter, collapse = ""))
+  dev.off()
+}
+```
 
 ```{r include=FALSE}
 ## Display the grid
 display <- function(mat, rule_num = NA){
-  par(pty="s") # square
+  par(mar = c(1,1,2,1), pty = "m") 
   image(t(apply(mat,2,rev)), col=c("grey90", "grey40"), yaxt="n", xaxt="n")
   grid(nx = ncol(mat), ny = nrow(mat),col="grey70", lty=1)
-  title(main = paste(c("Rule: ", rule_num), sep = ""))
+  title(main = paste0(c("Rule ", rule_num), collapse = ""))
+
 }
 ```
 
@@ -66,6 +81,41 @@ rule30 <- function(mat, iter){
 mat=init(101)
 rule30(mat,100)
 ```
+
+Here we will display each iteration of rule 30
+
+![](https://media.giphy.com/media/p5o2uVKdTmf1FnVFAs/giphy.gif){width=150%, height=150%}
+```{r eval=FALSE, include=FALSE}
+## to save png of each step for making gif
+rule30_gif <- function(mat, iter){
+  for (k in 1:iter) {
+    for (i in 1:ncol(mat)){
+      L = i-1
+      R = i+1
+      # for wrap around effect
+      if (L == 0){L = ncol(mat)}
+      if (R == ncol(mat) +1 ){R = 1}
+      # rule 30 states: left XOR (mid OR right)
+      # populating table downwards
+      if (isTRUE(xor(mat[k,L], mat[k,i] || mat[k,R]))) {
+        mat[k+1,i] = 1}
+    }
+    save(mat,30,k)
+  }
+}
+```
+
+```{r eval=FALSE, include=FALSE}
+## making gif 
+mat=init(101)
+rule30_gif(mat,100)
+list.files(path = "/Volumes/MyBook_3/git/R-random-spontaneous-projects/Cellular_automata_files/rule30_gif", pattern = "*.png", full.names = T) %>%
+  image_read() %>%
+  image_join() %>% 
+  image_animate(fps=10) %>% 
+  image_write("rule30.gif")
+```
+
 
 # The elementary CA numbering system
 
