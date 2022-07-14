@@ -34,17 +34,17 @@ GoL <- function(mat, path, iter){
       for (j in 1:nrow(mat)){
         N = j-1
         S = j+1
-        E = i-1
-        W = i+1
+        E = i+1
+        W = i-1
         # for wrap around effect
         if (N == 0) {N = nrow(mat)}
         if (S == nrow(mat) + 1) {S = 1}
-        if (E == 0) {E = 1}
-        if (W == ncol(mat) + 1) {W = ncol(mat)}
+        if (E == ncol(mat) + 1) {E = 1}
+        if (W == 0) {W = ncol(mat)}
         # check number of adjacent live cells
         count_lives = mat[N,i] + mat[S,i] + mat[j,E] + mat[j,W] + mat[N,W] + mat[N,E] + mat[S,W] + mat[S,E]
         if (mat[j,i] == 1 && count_lives < 2)                     {temp_mat[j,i] = 0}
-        if (mat[j,i] == 1 && (count_lives ==2|| count_lives == 3)){temp_mat[j,i] = 1}
+        if (mat[j,i] == 1 && (count_lives == 2|| count_lives == 3)){temp_mat[j,i] = 1}
         if (mat[j,i] == 1 && count_lives > 3)                     {temp_mat[j,i] = 0}
         if (mat[j,i] == 0 && count_lives == 3)                    {temp_mat[j,i] = 1}
       }
@@ -63,8 +63,10 @@ of iterations.
 They come from different initial states
 
 ``` r
-mat_size = 17
-mat=init(mat_size)
+## Initialization of oscillators
+
+# mat_size = 17
+# mat=init(mat_size)
 # # Blinker
 # mat[2:4,3] = 1
 
@@ -76,13 +78,13 @@ mat=init(mat_size)
 # mat[2:3,2:3] = 1
 # mat[4:5,4:5] = 1
 
-# Pulsar
-mat[c(3,8), 5:7] = 1
-mat[5:7, c(3,8)] = 1
-tmp = t(apply(mat, 2, rev)) # rotating pattern for 90 degrees
-tmp2 = t(apply(tmp, 2, rev))
-tmp3 = t(apply(tmp2, 2, rev))
-mat = mat+tmp+tmp2+tmp3
+# # Pulsar
+# mat[c(3,8), 5:7] = 1
+# mat[5:7, c(3,8)] = 1
+# tmp = t(apply(mat, 2, rev)) # rotating pattern for 90 degrees
+# tmp2 = t(apply(tmp, 2, rev))
+# tmp3 = t(apply(tmp2, 2, rev))
+# mat = mat+tmp+tmp2+tmp3
 
 # # Pentadecathlon
 # mat[6:15,11] = 1
@@ -94,3 +96,49 @@ mat = mat+tmp+tmp2+tmp3
 ![Pulsar](https://media1.giphy.com/media/jHPa8vcy3zMmnWVhkN/200w.webp)
 
 ![pentadecathlon](https://media2.giphy.com/media/nBslXi3zOBM44x6KlJ/giphy.gif?cid=790b7611a378b629621a62794dfacca17024d0212aea497f&rid=giphy.gif&ct=g)
+
+## Spaceships
+
+These are many patterns that will move across the screen. 4 of the most
+common ones will be shown below.
+
+``` r
+## Initialization of spaceships
+
+mat_size = 21
+mat = init(mat_size)
+
+# Glider
+glider = cbind(c(2,3,4,4,4), c(3,4,2,3,4))
+
+# lightweight spaceship (LWSS)
+lwss = cbind(c(2,2,3,4,4,5,5,5,5), c(3,6,7,3,7,4,5,6,7))
+
+# midweight spaceship (MWSS)
+mwss = cbind(c(2,3,3,4,5,5,6,6,6,6,6), c(5,3,7,8,3,8,4,5,6,7,8))
+
+# heavytweight spaceship (HWSS)
+hwss = cbind(c(2,2,3,3,4,5,5,6,6,6,6,6,6), c(5,6,3,8,9,3,9,4,5,6,7,8,9))
+
+# F-pentomino
+Fpen = cbind(c(2,2,3,3,4),c(3,4,2,3,3))
+
+
+
+pattern = hwss
+
+mat[pattern + (mat_size/2-1)] = 1
+```
+
+The simplest form of spaceship is ***Glider***. This 5 pixel pattern
+will repeat itself every 4 iterations and it will go on
+forever\!
+
+![glider](https://media1.giphy.com/media/Utz2aofGKqNAXk0CZQ/giphy.gif?cid=790b76114e7a8dc5478069b298c1677bfb33233272a3dfe6&rid=giphy.gif&ct=g)
+
+Below are three different sizes of spaceships\! Light, medium, and
+heavy.
+
+|                                                                           |                                                                            |                                                                           |
+| :-----------------------------------------------------------------------: | :------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| ![lwss](https://media3.giphy.com/media/zWti5Ka2E0CI2xMYiy/giphy.gif)Light | ![mwss](https://media3.giphy.com/media/r1HJ2O1mbxiAh44AmO/giphy.gif)Medium | ![hwss](https://media0.giphy.com/media/xEm8H7H0qokPE2WqJZ/giphy.gif)Heavy |
