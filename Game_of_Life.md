@@ -43,6 +43,7 @@ GoL <- function(mat, path, iter){
         if (W == 0) {W = ncol(mat)}
         # check number of adjacent live cells
         count_lives = mat[N,i] + mat[S,i] + mat[j,E] + mat[j,W] + mat[N,W] + mat[N,E] + mat[S,W] + mat[S,E]
+        # main logic from the 4 rules
         if (mat[j,i] == 1 && count_lives < 2)                     {temp_mat[j,i] = 0}
         if (mat[j,i] == 1 && (count_lives == 2|| count_lives == 3)){temp_mat[j,i] = 1}
         if (mat[j,i] == 1 && count_lives > 3)                     {temp_mat[j,i] = 0}
@@ -58,7 +59,7 @@ GoL <- function(mat, path, iter){
 ## Oscillators
 
 These are some patterns that will repeat itself after a certain number
-of iterations.
+of iterations. They stay in place and do not move around the map.
 
 They come from different initial states
 
@@ -101,13 +102,12 @@ Pentadecathlon
 ## Spaceships
 
 These are many patterns that will move across the screen. 4 of the most
-common ones will be shown below.
+common inistial states will be shown below.
 
 ``` r
 ## Initialization of spaceships
 
-mat_size = 21
-mat = init(mat_size)
+
 
 # Glider
 glider = cbind(c(2,3,4,4,4), c(3,4,2,3,4))
@@ -121,15 +121,22 @@ mwss = cbind(c(2,3,3,4,5,5,6,6,6,6,6), c(5,3,7,8,3,8,4,5,6,7,8))
 # heavytweight spaceship (HWSS)
 hwss = cbind(c(2,2,3,3,4,5,5,6,6,6,6,6,6), c(5,6,3,8,9,3,9,4,5,6,7,8,9))
 
-# F-pentomino
-Fpen = cbind(c(2,2,3,3,4),c(3,4,2,3,3))
+# # F-pentomino
+# Fpen = cbind(c(2,2,3,3,4),c(3,4,2,3,3))
 
+spaceship = list(glider, lwss, mwss, hwss)
 
-
-pattern = hwss
-
-mat[pattern + (mat_size/2-1)] = 1
+for (i in spaceship) {
+  mat_size = 21
+  mat = init(mat_size)
+  mat[i + (mat_size/2-3)] = 1
+  display(mat)
+}
 ```
+
+![](Game_of_Life_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](Game_of_Life_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->![](Game_of_Life_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->![](Game_of_Life_files/figure-gfm/unnamed-chunk-6-4.png)<!-- -->
+
+### Spaceships in action
 
 The simplest form of spaceship is ***Glider***. This 5 pixel pattern
 will repeat itself every 4 iterations and it will go on
@@ -149,32 +156,45 @@ heavy.
 Guns are patterns that will shot things out\! Essentially they generate
 spaceships, most commonly the ***glider*** pattern.
 
+### Initial states
+
 ``` r
 ## Initialization for guns
 
 mat_size = 51
 mat = init(mat_size)
+# Gosper glider gun
+squares = cbind(c(6,6,7,7,4,4,5,5), c(2,3,2,3,36,37,36,37))
+body1 = cbind(c(4,4,5,5,6,6,7,7,7,7,8,8,9,9,10,10), c(14,15,13,17,12,18,12,16,18,19,12,18,13,17,14,15))
+body2 = cbind(c(2,3,3,4,4,5,5,6,6,7,7,8), c(26,24,26,22,23,22,23,22,23,24,26,26))
+gosper = rbind(squares,body1,body2)
+mat[gosper] = 1
+display(mat, "Gosper glider gun")
+```
 
-# # Gosper glider gun 
-# squares = cbind(c(6,6,7,7,4,4,5,5), c(2,3,2,3,36,37,36,37))
-# body1 = cbind(c(4,4,5,5,6,6,7,7,7,7,8,8,9,9,10,10), c(14,15,13,17,12,18,12,16,18,19,12,18,13,17,14,15))
-# body2 = cbind(c(2,3,3,4,4,5,5,6,6,7,7,8), c(26,24,26,22,23,22,23,22,23,24,26,26))
-# gosper = rbind(squares,body1,body2)
+![](Game_of_Life_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
+``` r
 # Simkin glider gun
+mat_size = 51
+mat = init(mat_size)
 squares = cbind(c(2,2,2,2,3,3,3,3,5,5,6,6,13,13,14,14), c(2,3,9,10,2,3,9,10,6,7,6,7,33,34,33,34))
 body1 = cbind(c(11,11,12,13,14,14,14), c(24,25,23,23,23,24,25))
 body2 = cbind(c(11,11,12,13,14,15), c(27,28,29,30,29,28))
 body3 = cbind(c(19,19,20,21,21,21,22), c(22,23,22,23,24,25,25))
 simkin = rbind(squares, body1, body2, body3)
-
 mat[simkin] = 1
+display(mat, "Simkin glider gun")
 ```
+
+![](Game_of_Life_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 The *first* discovered gun is Gosper glider gun. This is the first
 pattern that is known to be able to grow till infinity. The smallest
 glider gun that exists is the Simkin glider gun. It only consists of 36
 cells.
+
+### Guns in action
 
 **Gosper glider
 gun**
@@ -185,3 +205,58 @@ gun**
 gun**
 
 ![](https://media2.giphy.com/media/LHHozMvpMdedGowa3R/giphy.gif?cid=790b7611e23b239781044a4d622c2235bdcedb1c770702eb&rid=giphy.gif&ct=g)
+
+## Puffers
+
+These are spaceships that leave debris behind.
+
+``` r
+## Initialization for puffers
+
+
+# Puffer 1
+mat = init(14)
+body1 = cbind(c(2,3,4,5,6,7,7,8,8,8), c(3,4,4,4,4,1,4,2,3,4))
+body2 = cbind(c(2,2,3,3,4), c(7,8,7,8,7))
+body3 = cbind(c(6,6,6,7,7,7,8), c(9,10,12,10,11,12,11))
+lhs = rbind(body1, body2, body3)
+mat[lhs] = 1
+# getting indices of mirror image for right hand side
+rhs = which(t(apply(mat,1,rev)) == 1, arr.ind = T)
+rhs[23:44] = rhs[23:44] + 13
+# adding them back together
+puffer1 = rbind(lhs, rhs)
+mat = init(151)
+mat[puffer1+55] = 1
+display(mat, "Puffer 1")
+```
+
+![](Game_of_Life_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+# Puffer 2
+mat = init(100)
+body1 = cbind(c(2,3,4,5,5,6,6,6), c(4,5,5,5,2,3,4,5))
+body2 = cbind(c(2,3,3,4,4,4), c(9,10,13,10,11,12))
+body3 = body1
+body3[9:16] = body3[9:16] + 14
+puffer2 = rbind(body1, body2, body3)
+mat[puffer2+40] = 1
+display(mat, "Puffer 2")
+```
+
+![](Game_of_Life_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+
+### Puffers in action
+
+![puffer1](https://media0.giphy.com/media/IYRBpJQKigXh3Zi9DM/giphy.gif?cid=790b76116a0d0d365b3e033b7f9848a2bc0b231df388fdbd&rid=giphy.gif&ct=g)
+Puffer1
+
+![puffer2](https://media2.giphy.com/media/4yqf1NfiXqUYfTyeuM/giphy.gif?cid=790b7611894186fad5f816bdb9f565ee877819ea4088abd7&rid=giphy.gif&ct=g)
+Puffer2
+
+These are some of the most common patterns in Conway’s game of life.
+There are many more to it.
+
+Here is a [link](https://conwaylife.com/wiki/Main_Page) for those who
+want to learn more about this simple yet complex “game”.
