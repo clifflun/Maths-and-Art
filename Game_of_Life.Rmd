@@ -125,12 +125,13 @@ They come from different initial states
 
 ```
 
-![Blinker](https://media0.giphy.com/media/yRS6RJr9N8JiuzVmna/200w.webp)
-![Toad](https://media1.giphy.com/media/NfvVwnUyU6Zg5jWlfA/200w.webp)
-![Beacon](https://media4.giphy.com/media/8PcqPIPXbRK50qUef1/200w.webp)
-![Pulsar](https://media1.giphy.com/media/jHPa8vcy3zMmnWVhkN/200w.webp)
+| | | 
+| :---: | :---: |
+|![Blinker](https://media0.giphy.com/media/yRS6RJr9N8JiuzVmna/200w.webp)Blinker|![Toad](https://media1.giphy.com/media/NfvVwnUyU6Zg5jWlfA/200w.webp)Toad|
+|![Beacon](https://media4.giphy.com/media/8PcqPIPXbRK50qUef1/200w.webp)Beacon|![Pulsar](https://media1.giphy.com/media/jHPa8vcy3zMmnWVhkN/200w.webp)Pulsar|
 
 ![pentadecathlon](https://media2.giphy.com/media/nBslXi3zOBM44x6KlJ/giphy.gif?cid=790b7611a378b629621a62794dfacca17024d0212aea497f&rid=giphy.gif&ct=g)
+Pentadecathlon
 
 ## Spaceships
 
