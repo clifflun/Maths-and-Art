@@ -5,4 +5,4 @@
 - Conway's Game of Life (2D Cellular Automata)
     ![gosper gun](/Game_of_Life_files/gun/gosper/gosper.gif)
 - Turing Pattern
-    ![turing pattern](/Turing_Pattern_files/default30/gif/default.gif)
+    ![turing pattern](/Turing_Pattern_files/default30/default.gif)
