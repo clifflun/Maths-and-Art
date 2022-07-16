@@ -1,4 +1,4 @@
-# Random spontaneous R projects
+# Random spontaneous projects
 
 - Elementary Cellular Automata(rules 0-255)
 
@@ -10,5 +10,5 @@
 
 - Turing Pattern
 
-![turing pattern](/Turing_Pattern_files/default30/default.gif)
+![turing pattern](/Turing_Pattern_files/default/default.gif)
 
