@@ -40,13 +40,13 @@ display <- function(mat, name= " "){
 ```
 
 
-```{r}
+```{r include=FALSE}
 init <- function(size = 3){
 a <- array(1,size**2)
 b <- integer(size**2)
 m <- array(c(a,b), dim = c(size,size,2))
 dimnames(m)[[3]] = c("A", "B")
-m[(size/2 - 5):(size/2 + 5), (size/2 - 5):(size/2 + 5), 2] = 1
+m[(size/2 - 4):(size/2 + 6), (size/2 - 4):(size/2 + 6), 2] = 1
 # m[(size/3 - 2):(size/3 + 2), (size/3 - 2):(size/3 + 2), 2] = 1
 # m[(size/4 - 2):(size/4 + 2), (size/4 - 2):(size/4 + 2), 2] = 1
 return(m)
@@ -114,9 +114,9 @@ GSM <- function(m,iter, path, dA = 1.1, dB = 0.3, r = 0.95, f = .055, k = 0.062)
 ```
 
 
-```{r}
-m <- init(30)
-GSM(m,1000,"/Volumes/MyBook_3/git/random-spontaneous-projects/Turing_Pattern_files/default/")
+```{r eval=FALSE, include=FALSE}
+m <- init(41)
+GSM(m,4000,"/Volumes/MyBook_3/git/random-spontaneous-projects/Turing_Pattern_files/default40/")
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -126,19 +126,11 @@ make_gif <- function(path, gif_name){
 list.files(path = path, pattern = "*.png", full.names = T) %>%
   image_read() %>%
   image_join() %>%
-  image_animate(fps=10) %>%
+  image_animate(fps=20) %>%
   image_write(paste0(path,"/",gif_name,".gif", collapse = ""))
 }
 
-make_gif("/Volumes/MyBook_3/git/random-spontaneous-projects/Turing_Pattern_files/default/", "test")
-```
-```
-
-```{r}
-a = array(1,10)
-b = seq(0,1, length.out = 10)
-z = a-b
-print(z)
+make_gif("/Volumes/MyBook_3/git/random-spontaneous-projects/Turing_Pattern_files/default30/gif/", "default")
 ```
 
 
