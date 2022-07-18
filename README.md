@@ -1,6 +1,6 @@
 # Random spontaneous projects
 
-- Elementary Cellular Automata(rules 0-255)
+- [Elementary Cellular Automata(rules 0-255)](/Cellular_automata.md)
 
 ![rule30](/Cellular_automata_files/rule30_gif/rule30.gif)
 
