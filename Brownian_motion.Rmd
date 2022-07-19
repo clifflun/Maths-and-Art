@@ -81,9 +81,9 @@ p
 
 ## Brownian motion (3D random walk)
 
-Random particle path.
+Random particle path. Knitr is having trouble displaying interactive plotly graphs, below is a screenshot of the 3D random walk.
 
-```{r}
+```{r eval=FALSE}
 
 set.seed(520)
 n = 5000
@@ -99,3 +99,5 @@ p <- plot_ly(rw, x=~tx, y=~ty, z=~tz, type="scatter3d", mode = "lines", line = l
 p
 
 ```
+
+![3Drw](Brownian_motion_files/3D_rw.png)
