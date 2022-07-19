@@ -10,7 +10,7 @@
 
 - [Turing Pattern](Turing_Pattern.md)
 
-![turing pattern](/Turing_Pattern_files/default/default.gif)
+![turing pattern](/Turing_Pattern_files/gifs/default.gif)
 
 - [Brownian Motion](Brownian_motion.md)
 
