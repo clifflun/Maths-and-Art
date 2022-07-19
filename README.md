@@ -12,3 +12,6 @@
 
 ![turing pattern](/Turing_Pattern_files/default/default.gif)
 
+- [Brownian Motion](Brownian_motion.md)
+
+![Brownian motion](Brownian_motion_files/3D_rw.png)
